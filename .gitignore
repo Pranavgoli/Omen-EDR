@@ -21,3 +21,8 @@ dist-ssr/
 # OS
 .DS_Store
 Thumbs.db
+.env.local
+.env.*.local
+
+# Version
+0.1

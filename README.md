@@ -1,6 +1,6 @@
-# 🕵️‍♂️ Omen KLD (Keylogger Detector)
+# 🕵️‍♂️ Omen KLD (Keylogger Detector) v0.1
 
-**Omen KLD** is a high-fidelity Windows, Linux, and macOS process monitor and security tool. It combines real-time forensics with advanced heuristics to detect potential keylogging activity, hidden payloads, and suspicious system behavior across the entire filesystem.
+**Omen KLD v0.1** is an experimental high-fidelity Windows, Linux, and macOS process monitor. It combines real-time forensics with advanced heuristics to detect potential keylogging activity, hidden payloads, and suspicious system behavior across the entire filesystem.
 
 ---
 
@@ -14,6 +14,11 @@ This project has been hardened to meet the **OWASP Top 10:2025** security standa
 ---
 
 ## 📸 Dashboard Preview & Features
+# OS
+.DS_Store
+Thumbs.db
+.env.local
+.env.*.local
 - **Real-time Monitoring**: Live CPU/RAM/Disk stats and process threads.
 - **Deep Path Heuristics**: Automatic flagging of processes in root directories (e.g., `C:\`), `ProgramData`, `Public` folders, and Unix `/tmp` or `/dev/shm`.
 - **Targeted Forensics**: Analysis of Shell Execution Chains (Python/Bash/PS) to detect hidden scripts.

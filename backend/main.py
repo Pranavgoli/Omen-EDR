@@ -28,8 +28,8 @@ app = FastAPI(
 )
 
 # OWASP A01:2025 - Stateful Session Token for local handshake
-# This token is generated fresh every time the app starts
-SESSION_TOKEN = secrets.token_hex(16)
+# This token is passed from start_tool.py via environment variables
+SESSION_TOKEN = os.getenv("OMEN_SESSION_TOKEN", secrets.token_hex(16))
 
 app.add_middleware(
     CORSMiddleware,
@@ -90,18 +90,15 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 @app.websocket("/ws/stats")
-async def websocket_endpoint(websocket: WebSocket):
-    await manager.connect(websocket)
-    
+async def websocket_endpoint(websocket: WebSocket, token: str = None):
+    # OWASP A01:2025 - Strict Access Control
+    if not token or token != SESSION_TOKEN:
+        await websocket.close(code=1008) # Policy Violation
+        return
+
     try:
-        # OWASP A01:2025 - Initial Handshake
-        # Send the session token to the frontend immediately after connection
-        await websocket.send_text(json.dumps({
-            "type": "handshake",
-            "session_token": SESSION_TOKEN
-        }))
+        await manager.connect(websocket)
     except Exception:
-        manager.disconnect(websocket)
         return
     
     try:

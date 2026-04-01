@@ -2,6 +2,7 @@ import os
 import sys
 import ctypes
 import subprocess
+import secrets
 
 def is_admin():
     if os.name == 'nt':
@@ -34,9 +35,18 @@ def main():
     print("[+] Administrator privileges confirmed.")
     print("[+] Setting up Keylogger Detection Tool environment...")
     
+    # Generate a fresh session token for this launch (OWASP A01:2025 Hardening)
+    session_token = secrets.token_hex(16)
+    print(f"[+] Secure Session ID: {session_token[:8]}...")
+
     # Move to the current script directory
     base_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(base_dir)
+
+    # Share token with frontend via .env.local
+    frontend_dir = os.path.join(base_dir, "frontend")
+    with open(os.path.join(frontend_dir, ".env.local"), "w") as f:
+        f.write(f"VITE_SESSION_TOKEN={session_token}\n")
 
     # Setup Python venv
     venv_dir = os.path.join(base_dir, "venv")
@@ -74,9 +84,11 @@ def main():
     print("="*50 + "\n")
 
     # Start FastAPI Backend
-    # Popen so it runs non-blocking
-    print("[+] Starting FastAPI Backend on ws://localhost:8192")
-    backend = subprocess.Popen([venv_python, "-m", "uvicorn", "backend.main:app", "--host", "127.0.0.1", "--port", "8192"])
+    # Pass the session token via environment variable
+    print("[+] Starting FastAPI Backend (Handshake Security Active)")
+    env = os.environ.copy()
+    env["OMEN_SESSION_TOKEN"] = session_token
+    backend = subprocess.Popen([venv_python, "-m", "uvicorn", "backend.main:app", "--host", "127.0.0.1", "--port", "8192"], env=env)
 
     # Start Vite Frontend if initialized
     if os.path.exists(os.path.join(frontend_dir, "package.json")):

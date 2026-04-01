@@ -62,8 +62,9 @@ function App() {
   });
 
   useEffect(() => {
-    // Connect to WebSocket Server
-    const ws = new WebSocket('ws://127.0.0.1:8192/ws/stats');
+    // Connect to WebSocket Server with Security Token (OWASP A01:2025)
+    const token = import.meta.env.VITE_SESSION_TOKEN;
+    const ws = new WebSocket(`ws://127.0.0.1:8192/ws/stats?token=${token}`);
 
     ws.onopen = () => {
       console.log('Connected to Backend');
@@ -73,12 +74,7 @@ function App() {
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       
-      // OWASP A01:2025 - Receive Security Handshake
-      if (data.type === 'handshake') {
-        console.log('Secure Handshake Established');
-        setSessionToken(data.session_token);
-        return;
-      }
+      // Stats Update
 
       setStats({
         ...data,
