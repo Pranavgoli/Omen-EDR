@@ -1,0 +1,9 @@
+# OWASP A03:2025 - Software Supply Chain Failures pinning
+fastapi==0.135.2
+starlette==1.0.0 # Security Patch for CVE-2024-47874, CVE-2025-54121
+uvicorn==0.27.1
+psutil==5.9.8
+pefile==2023.2.7
+pywin32==311; sys_platform == 'win32'
+websockets==12.0
+pip-audit==2.7.0 # OWASP A03:2025 Verification tool
