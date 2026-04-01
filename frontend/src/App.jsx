@@ -102,7 +102,9 @@ function App() {
             {stats.threats_found > 0 ? <ShieldAlert size={28} /> : <ShieldCheck size={28} />}
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Omen KLD</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-white leading-tight">
+              Omen EDR
+            </h1>
             <p className="text-sm text-slate-400">Threat Telemetry & Process Monitor</p>
           </div>
         </div>
