@@ -22,7 +22,7 @@ logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
 app = FastAPI(
-    title="Omen KLD API",
+    title="Omen EDR API",
     docs_url=None, # OWASP A02:2025 - Disable default docs in prod
     redoc_url=None
 )
