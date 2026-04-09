@@ -17,6 +17,7 @@ This project has been hardened to meet the **OWASP Top 10:2025** security standa
 - **Real-time Monitoring**: Live CPU/RAM/Disk stats and process threads.
 - **Deep Path Heuristics**: Automatic flagging of processes in root directories (e.g., `C:\`), `ProgramData`, `Public` folders, and Unix `/tmp` or `/dev/shm`.
 - **Targeted Forensics**: Analysis of Shell Execution Chains (Python/Bash/PS) to detect hidden scripts.
+- **Universal Log Forensics**: Ingest and parse 15+ log types (.evtx, .pcap, .gz) into a structured forensic timeline.
 - **Security Handshake**: OWASP A01:2025 compliant local-only WebSocket authentication.
 - **Network Telemetry**: Track which processes are opening active network sockets.
 - **One-Click Quarantine**: Securely terminate non-critical suspicious processes.

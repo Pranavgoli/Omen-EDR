@@ -13,7 +13,7 @@ import logging
 import uuid
 import secrets
 from typing import List
-from fastapi import Request, HTTPException, Depends
+from fastapi import Request, HTTPException, Depends, File, UploadFile
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
@@ -198,3 +198,18 @@ async def quarantine_process(pid: int, token: str = Depends(verify_token)):
             status_code=403 if "ERR_SYSTEM_PROTECTED" in message else 500,
             content={"status": "error", "message": message}
         )
+
+@app.post("/api/analyze-logs")
+async def analyze_logs_endpoint(file: UploadFile = File(...), token: str = Depends(verify_token)):
+    from backend.scanners.log_parser import LogParser
+    parser = LogParser()
+    try:
+        content = await file.read()
+        if len(content) > 1024 * 1024 * 50: # 50 MB limit
+            raise HTTPException(status_code=400, detail="File too large. Max 50MB.")
+        
+        result = parser.process_file(file.filename, content)
+        return result
+    except Exception as e:
+        logger.error(f"Error parsing log file: {e}")
+        return JSONResponse(status_code=500, content={"status": "error", "message": f"Parsing failed: {str(e)}"})

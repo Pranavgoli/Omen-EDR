@@ -1,28 +1,87 @@
-# Python
+# Omen-EDR Hardened Gitignore
+# OWASP A01:2025 Compliance - Zero Environment Leakage
+
+# --- Python Environment ---
+venv/
+.venv/
+env/
 __pycache__/
 *.py[cod]
 *$py.class
-venv/
-.env
-.pytest_cache/
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Node.js
+# --- Frontend / Node.js ---
 node_modules/
+frontend/node_modules/
+.npm
 dist/
 dist-ssr/
 *.local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+frontend/.env.local
 
-# IDEs
+# --- Forensic Data & Logs (Sanitization) ---
+# Prevents accidental upload of analyzer telemetry
+*.evtx
+*.evt
+*.etl
+*.pcap
+*.pcapng
+*.log
+*.txt
+*.csv
+*.xml
+*.json
+*.gz
+*.tar.gz
+*.bak
+*.config
+*.out
+*.gr
+
+# EXCEPTIONS: Allow project configuration files
+!package.json
+!tsconfig.json
+!package-lock.json
+
+# --- Databases ---
+# Prevents leaking incident history or security metadata
+*.db
+*.sqlite
+*.sqlite3
+omen_edr.db
+
+# --- IDEs & OS Noise ---
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# OS
 .DS_Store
 Thumbs.db
-.env.local
-.env.*.local
+Desktop.ini
+.gemini/
 
-# Version
-0.1
+# --- Tools ---
+build_standalone.py
+*.exe
+*.msi
