@@ -1,6 +1,6 @@
-# 🕵️‍♂️ Omen EDR (Endpoint Detection & Response) v0.1
+# 🕵️‍♂️ Omen EDR (Endpoint Detection & Response)
 
-**Omen EDR v0.1** is an experimental high-fidelity Windows, Linux, and macOS endpoint monitor. It combines real-time forensics with advanced heuristics to detect potential keylogging activity, hidden payloads, and suspicious system behavior across the entire filesystem.
+**Omen EDR** is an experimental high-fidelity Windows, Linux, and macOS endpoint monitor. It combines real-time forensics with advanced heuristics to detect potential keylogging activity, hidden payloads, and suspicious system behavior across the entire filesystem.
 
 ---
 
